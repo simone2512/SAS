@@ -18,9 +18,9 @@ public class Section {
         }
         return result;
     }
-
     public MenuItem[] getItems() {
-        return null;
-        //TODO
+        // Converte la lista in un array e lo restituisce
+        return sectionItems.toArray(new MenuItem[0]);
     }
+
 }

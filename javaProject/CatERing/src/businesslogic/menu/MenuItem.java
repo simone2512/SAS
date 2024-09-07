@@ -19,8 +19,8 @@ public class MenuItem {
         return description;
     }
 
-    public Object getItemRecipe() {
-        return null;
-        //TODO
+    public Recipe getItemRecipe() {
+        return itemRecipe;//TODO?
     }
+
 }

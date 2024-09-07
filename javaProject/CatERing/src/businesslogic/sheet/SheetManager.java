@@ -43,9 +43,13 @@ public class SheetManager {
     }
 
     private void notifySheetCreated(SummarySheet ss) {
+        for(SheetEventReceiver er :this.receivers){
+            ss.updateSheetCreated(currentSheet,ss)
+        }
     }
 
     private void setCurrentSheet(SummarySheet ss) {
+        this.currentSheet = ss;
     }
 
     public SummarySheet openSummarySheet(SummarySheet ss) throws UseCaseLogicException{
@@ -83,6 +87,9 @@ public class SheetManager {
     }
 
     private void notifySheetResetted(SummarySheet ss) {
+        for (SheetEventReceiver er :this.receivers){
+            er.updateSheetResetted(ss);
+        }
     }
 
     public SummarySheet getCurrentManager(){
@@ -100,7 +107,9 @@ public class SheetManager {
     }
 
     private void notifyTaskAdded(Task t) {
-        //TODO
+        for (SheetEventReceiver er : this.receivers){
+            er.updateTaskAdded(currentSheet, t);
+        }
     }
 
     public Task deleteTask(Task t) throws UseCaseLogicException{
@@ -114,7 +123,9 @@ public class SheetManager {
     }
 
     private void notifyTaskRemoved(Task t) {
-        //TODO
+        for(SheetEventReceiver er :this.receivers){
+            er.updateTaskRemoved(t);
+        }
     }
 
     public Task assignTask(Task t, User cook, Workshift workshift, int time_estimate, int doses) throws UseCaseLogicException{
@@ -128,7 +139,9 @@ public class SheetManager {
     }
 
     private void notifyAssignementAdded(Task t){
-        //TODO
+        for(SheetEventReceiver er :this.receivers){
+            er.updateAssignementAdded(t);
+        }
     }
 
     public Task deleteAssignementTask(Task t) throws UseCaseLogicException{
@@ -142,7 +155,9 @@ public class SheetManager {
     }
 
     private void notifyAssignementRemoved(Task t) {
-        //TODO
+        for(SheetEventReceiver er :this.receivers){
+            er.updateAssignementRemoved(t);
+        }
     }
 
     public Task setDosesToReady(Task t) throws UseCaseLogicException{
@@ -156,6 +171,8 @@ public class SheetManager {
     }
 
     private void notifyAssignementModified(Task t) {
-        //TODO
+        for(SheetEventReceiver er :this.receivers){
+            er.updateAssignementModified(t);
+        }
     }
 }

@@ -1,6 +1,6 @@
 package businesslogic;
 
-import businesslogic.menu.Menu;
+import businesslogic.calendar.CalendarManager;
 import businesslogic.menu.MenuManager;
 import businesslogic.recipe.RecipeManager;
 import businesslogic.sheet.SheetManager;
@@ -20,12 +20,14 @@ public class CatERing {
     private RecipeManager recipeMgr;
     private UserManager userMgr;
     private SheetManager sheetMgr;
+    private CalendarManager calendarMgr;
 
     private CatERing() {
         menuMgr = new MenuManager();
         recipeMgr = new RecipeManager();
         userMgr = new UserManager();
         sheetMgr = new SheetManager();
+        calendarMgr = new CalendarManager();
     }
 
     public SheetManager getSheetManager() {return sheetMgr; }
@@ -40,5 +42,8 @@ public class CatERing {
 
     public UserManager getUserManager() {
         return userMgr;
+    }
+
+    public CalendarManager getCalendarManager() {return calendarMgr;
     }
 }
