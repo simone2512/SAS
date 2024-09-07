@@ -18,4 +18,9 @@ public class Section {
         }
         return result;
     }
+
+    public MenuItem[] getItems() {
+        return null;
+        //TODO
+    }
 }

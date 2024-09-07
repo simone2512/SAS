@@ -51,4 +51,14 @@ public class Menu {
 
         return result;
     }
+
+    public ArrayList<MenuItem> getFreeItems() {
+        return null;
+        //TODO
+    }
+
+    public Section[] getSections() {
+        return null;
+        //TODO
+    }
 }

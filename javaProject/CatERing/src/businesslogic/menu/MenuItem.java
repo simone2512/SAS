@@ -18,4 +18,9 @@ public class MenuItem {
     public String toString() {
         return description;
     }
+
+    public Object getItemRecipe() {
+        return null;
+        //TODO
+    }
 }
