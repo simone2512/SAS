@@ -19,9 +19,75 @@
 -- Create the database catering
 --
 
-CREATE DATABASE catering CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+CREATE DATABASE catering CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE catering;
+
+-- Table structure for tables `Sheets`, `SheetTasks`, `Workshifts`
+--
+
+-- Drop tables if they already exist
+DROP TABLE IF EXISTS `Sheets`;
+DROP TABLE IF EXISTS `SheetTasks`;
+DROP TABLE IF EXISTS `Workshifts`;
+
+-- Create the Sheets table
+CREATE TABLE `Sheets` (
+                          `id` int(11) NOT NULL AUTO_INCREMENT,
+                          `service_id` int(11) NOT NULL,
+                          PRIMARY KEY (`id`),
+                          FOREIGN KEY (`service_id`) REFERENCES `Services`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Create the SheetTasks table
+CREATE TABLE `SheetTasks` (
+                              `id` int(11) NOT NULL AUTO_INCREMENT,
+                              `sheet_id` int(11) NOT NULL,
+                              `recipe_id` int(11) NOT NULL,
+                              `time` int(11) DEFAULT 0,
+                              `doses` int(11) DEFAULT 0,
+                              `workshift_id` int(11) DEFAULT NULL,
+                              `cook_id` int(11) DEFAULT NULL,
+                              PRIMARY KEY (`id`),
+                              FOREIGN KEY (`sheet_id`) REFERENCES `Sheets`(`id`),
+                              FOREIGN KEY (`recipe_id`) REFERENCES `Recipes`(`id`),
+                              FOREIGN KEY (`workshift_id`) REFERENCES `Workshifts`(`id`),
+                              FOREIGN KEY (`cook_id`) REFERENCES `Users`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Create the Workshifts table
+CREATE TABLE `Workshifts` (
+                              `id` int(11) NOT NULL AUTO_INCREMENT,
+                              `date` date DEFAULT NULL,
+                              `place` varchar(255) DEFAULT NULL,
+                              `starting_time` float DEFAULT NULL,
+                              `duration` int(11) DEFAULT NULL,
+                              `bonus_time` int(11) DEFAULT NULL,
+                              `capacity` int(11) DEFAULT NULL,
+                              PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Lock tables before inserting data
+LOCK TABLES `Sheets` WRITE, `SheetTasks` WRITE, `Workshifts` WRITE;
+
+-- Insert example data for Workshifts table
+INSERT INTO `Workshifts` (date, place, starting_time, duration, bonus_time, capacity) VALUES
+                                                                                          ('2024-05-28', 'Kitchen A', 9.00, 8, 1, 5),
+                                                                                          ('2024-05-29', 'Kitchen B', 10.00, 6, 2, 4);
+
+-- Insert example data for Sheets table
+INSERT INTO `Sheets` (service_id) VALUES
+                                      (1), (2);
+
+-- Insert example data for SheetTasks table
+INSERT INTO `SheetTasks` (sheet_id, recipe_id, time, doses, workshift_id, cook_id) VALUES
+                                                                                       (1, 1, 60, 10, 1, 1),
+                                                                                       (1, 2, 45, 20, 2, 2),
+                                                                                       (2, 1, 30, 15, 1, 3),
+                                                                                       (2, 3, 90, 25, 2, 4);
+
+-- Unlock tables after inserting data
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Events`
@@ -31,13 +97,13 @@ DROP TABLE IF EXISTS `Events`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Events` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) DEFAULT NULL,
-  `date_start` date DEFAULT NULL,
-  `date_end` date DEFAULT NULL,
-  `expected_participants` int(11) DEFAULT NULL,
-  `organizer_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+                          `id` int(11) NOT NULL AUTO_INCREMENT,
+                          `name` varchar(128) DEFAULT NULL,
+                          `date_start` date DEFAULT NULL,
+                          `date_end` date DEFAULT NULL,
+                          `expected_participants` int(11) DEFAULT NULL,
+                          `organizer_id` int(11) NOT NULL,
+                          PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -59,9 +125,9 @@ DROP TABLE IF EXISTS `MenuFeatures`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `MenuFeatures` (
-  `menu_id` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL DEFAULT '',
-  `value` tinyint(1) DEFAULT '0'
+                                `menu_id` int(11) NOT NULL,
+                                `name` varchar(128) NOT NULL DEFAULT '',
+                                `value` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -83,13 +149,13 @@ DROP TABLE IF EXISTS `MenuItems`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `MenuItems` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `menu_id` int(11) NOT NULL,
-  `section_id` int(11) DEFAULT NULL,
-  `description` tinytext,
-  `recipe_id` int(11) NOT NULL,
-  `position` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+                             `id` int(11) NOT NULL AUTO_INCREMENT,
+                             `menu_id` int(11) NOT NULL,
+                             `section_id` int(11) DEFAULT NULL,
+                             `description` tinytext,
+                             `recipe_id` int(11) NOT NULL,
+                             `position` int(11) DEFAULT NULL,
+                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -187,9 +253,9 @@ DROP TABLE IF EXISTS `Roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Roles` (
-  `id` char(1) NOT NULL,
-  `role` varchar(128) NOT NULL DEFAULT 'servizio',
-  PRIMARY KEY (`id`)
+                         `id` char(1) NOT NULL,
+                         `role` varchar(128) NOT NULL DEFAULT 'servizio',
+                         PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -211,16 +277,16 @@ DROP TABLE IF EXISTS `Services`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Services` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `event_id` int(11) NOT NULL,
-  `name` varchar(128) DEFAULT NULL,
-  `proposed_menu_id` int(11) NOT NULL DEFAULT '0',
-  `approved_menu_id` int(11) DEFAULT '0',
-  `service_date` date DEFAULT NULL,
-  `time_start` time DEFAULT NULL,
-  `time_end` time DEFAULT NULL,
-  `expected_participants` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+                            `id` int(11) NOT NULL AUTO_INCREMENT,
+                            `event_id` int(11) NOT NULL,
+                            `name` varchar(128) DEFAULT NULL,
+                            `proposed_menu_id` int(11) NOT NULL DEFAULT '0',
+                            `approved_menu_id` int(11) DEFAULT '0',
+                            `service_date` date DEFAULT NULL,
+                            `time_start` time DEFAULT NULL,
+                            `time_end` time DEFAULT NULL,
+                            `expected_participants` int(11) DEFAULT NULL,
+                            PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -242,8 +308,8 @@ DROP TABLE IF EXISTS `UserRoles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `UserRoles` (
-  `user_id` int(11) NOT NULL,
-  `role_id` char(1) NOT NULL DEFAULT 's'
+                             `user_id` int(11) NOT NULL,
+                             `role_id` char(1) NOT NULL DEFAULT 's'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -265,9 +331,9 @@ DROP TABLE IF EXISTS `Users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(128) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
+                         `id` int(11) NOT NULL AUTO_INCREMENT,
+                         `username` varchar(128) NOT NULL DEFAULT '',
+                         PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

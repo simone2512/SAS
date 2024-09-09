@@ -1,4 +1,4 @@
-package businesslogic.calendar;
+package catering.businesslogic.calendar;
 
 import java.util.Date;
 

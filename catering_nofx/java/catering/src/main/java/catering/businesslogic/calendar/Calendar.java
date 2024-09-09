@@ -1,4 +1,4 @@
-package businesslogic.calendar;
+package catering.businesslogic.calendar;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,14 +13,4 @@ public class Calendar {
     private Date ending_date;
     private ArrayList<Workshift> workshifts;
     private ArrayList<Grouping> groupings;
-
-    public void setKitchenSpecifications(int duration, String place) {
-        this.duration=duration;
-        this.place=place;
-    }
-
-    public String getCategory() {
-        //TODO
-    }
-
 }
