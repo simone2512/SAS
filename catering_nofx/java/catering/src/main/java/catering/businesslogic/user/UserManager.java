@@ -1,11 +1,11 @@
-package catering.businesslogic.user;
+package businesslogic.user;
 
 public class UserManager {
     private User currentUser;
 
-    public void fakeLogin(String username) //TODO: bisogna implementare il login vero!
+    public void fakeLogin() //TODO: bisogna implementare il login vero!
     {
-        this.currentUser = User.loadUser(username);
+        this.currentUser = new User();
     }
 
     public User getCurrentUser() {

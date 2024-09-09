@@ -1,14 +1,11 @@
-package catering.businesslogic.recipe;
+package businesslogic.recipe;
 
 import java.util.ArrayList;
 
 public class RecipeManager {
+    private ArrayList<Recipe> recipes;
 
     public RecipeManager() {
-        Recipe.loadAllRecipes();
-    }
-
-    public ArrayList<Recipe> getRecipes() {
-        return Recipe.getAllRecipes();
+        recipes = new ArrayList<>();
     }
 }
