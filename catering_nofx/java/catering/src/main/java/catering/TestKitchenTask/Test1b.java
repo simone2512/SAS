@@ -16,7 +16,7 @@ public class Test1b {
 
             System.out.println("\nTEST RESET SUMMARY SHEET");
             SheetManager sheetManager = CatERing.getInstance().getSheetManager();
-            SummarySheet sheet = sheetManager.getSummarySheets().get(3);
+            SummarySheet sheet = sheetManager.getSummarySheets().get(2);
             SummarySheet resetSheet = sheetManager.resetSummarySheet(sheet, sheet.getService());
             System.out.println(resetSheet);
         } catch (UseCaseLogicException e) {
